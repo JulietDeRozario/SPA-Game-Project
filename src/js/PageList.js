@@ -3,7 +3,7 @@ const PageList = (argument) => {
 
   const fetchList = (argument) => {
     let finalURL = `https://api.rawg.io/api/games?page=${current_page}&page_size=9`;
-    let articles;
+    let articles = "";
     if (argument) {
       finalURL += "&search=" + argument;
     }
@@ -23,7 +23,7 @@ const PageList = (argument) => {
           genres = genres.join(",\n");
           platforms = platforms.join(",\n");
           articles += `
-              <div class="card">
+              <div class="card col-4">
                 <div class="card__side card__side--back">
                   <div class="card__cover"  style="background-image: url('${article["background_image"]}')">
                     <h4 class="card__heading">
@@ -37,7 +37,7 @@ const PageList = (argument) => {
                       <li>Note: ${article.rating}</li>
                       <li>${article.ratings_count} votes</li>
                       <li>
-                        <a class="btn btn-lg btn-info my-4" onclick="PageDetail('${article.id}')" href = "#pagedetail/${article.id}">
+                        <a class="btn btn-info my-4" onclick="PageDetail('${article.id}')" href = "#pagedetail/${article.id}">
                           <strong>Plus d'infos</strong>
                         </a>
                       </li>

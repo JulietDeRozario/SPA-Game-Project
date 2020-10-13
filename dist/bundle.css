@@ -9925,14 +9925,14 @@ html {
 .card {
   flex: initial;
   position: relative;
-  height: 52rem;
-  width: 48rem;
+  height: 35rem;
+  width: 27rem;
   -moz-perspective: 200rem;
   perspective: 200rem;
   margin: 2rem;
 }
 .card__side {
-  height: 52rem;
+  height: 35rem;
   transition: all 0.8s ease;
   position: absolute;
   top: 0;
@@ -9972,20 +9972,20 @@ html {
 .card__subject {
   font-family: "Inconsolata", monospace;
   letter-spacing: 0.8rem;
-  font-size: 1.6rem;
+  font-size: 0.05rem;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
 }
 .card__title {
   font-family: "VT323", monospace;
   text-transform: uppercase;
-  font-size: 6rem;
+  font-size: 3rem;
   font-weight: 100;
 }
 .card__cover {
   position: relative;
   background-size: cover;
-  height: 14rem;
+  height: 7rem;
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
   clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
   border-top-left-radius: 3px;
@@ -10002,7 +10002,7 @@ html {
 }
 .card__heading-span {
   font-family: "VT323", monospace;
-  font-size: 4.2rem;
+  font-size: 2rem;
   font-weight: 300;
   text-transform: uppercase;
   padding: 1rem 1.5rem;
@@ -10019,7 +10019,7 @@ html {
 }
 .card__details ul li {
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 1rem;
   padding: 1rem;
 }
 .card__details ul li:not(:last-child) {

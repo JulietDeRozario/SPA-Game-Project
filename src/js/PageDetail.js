@@ -46,7 +46,7 @@ const PageDetail = (id) => {
 
     document.getElementById('articles').innerHTML = `
       <div class="game_card" id="bright">
-        <div class="info_section">
+        <div class="info_section mb-1">
           <div class="game_header">
             <img class="locandina" src="${game.background_image_additional}"/>
             <h1>${game.name}</h1>
@@ -55,20 +55,16 @@ const PageDetail = (id) => {
             <span class="minutes">${game.rating}/5 (${game.ratings_count} notes)</span>
             <p class="type">${genres}</p>
           </div>
-          <div class="game_desc">
-            <p class="text mt-0">
+          <div class="game_desc mt-5">
+            <p class="text">
               ${game.description} 
             </p>
             ${video}
             <em class="text">
               Developpé par: ${developers};<br>
               Disponible sur: ${platforms}
-            </em>
-          </div>
-          <div class="game_social">
-            <ul>
-              <li><a href="${game.website}">Site web</a></li>
-            </ul>
+            </em><br>
+            <a href="${game.website}">Site web</a>
           </div>
         </div>
         <div class="blur_back bright_back" style="background-image: url('${game.background_image}')"></div>

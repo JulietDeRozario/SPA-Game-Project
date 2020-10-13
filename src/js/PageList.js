@@ -44,7 +44,7 @@ const PageList = (argument) => {
                     </ul>
                   </div>
                 </div>
-                <div class="card__side card__side--front" style="background-image: url('${article["background_image"]}')">
+                <div class="card__side card__side--front" style="background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('${article["background_image"]}'); background-position:center top;">
                   <div class="card__theme">
                     <div class="card__theme-box">
                       <p class="card__title">${article.name}</p>

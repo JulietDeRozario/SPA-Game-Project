@@ -1,8 +1,7 @@
 const PageList = (argument) => {
-  let current_page = 1; 
 
   const fetchList = (argument) => {
-    let finalURL = `https://api.rawg.io/api/games?page=${current_page}&page_size=9`;
+    let finalURL = `https://api.rawg.io/api/games?page_size=9`;
     let articles = "";
     if (argument) {
       finalURL += "&search=" + argument;
@@ -13,15 +12,19 @@ const PageList = (argument) => {
         response.results.forEach((article) => {
           let platforms = [];
           let genres = []; 
-          article.genres.forEach((genre) =>  {
-            genres.push(genre.name);
-          })
           article.platforms.forEach((platform) => {
             platforms.push(platform.platform.name);
           })
-          console.log(article);
+          article.genres.forEach((genre) =>  {
+            genres.push(genre.name);
+          })
+          if(article.platforms !== null ){
+            article.platforms.forEach((platform) => {
+              platforms.push(platform.platform.name);
+            })
+            platforms = platforms.join(",\n");
+          }
           genres = genres.join(",\n");
-          platforms = platforms.join(",\n");
           articles += `
               <div class="card col-4">
                 <div class="card__side card__side--back">

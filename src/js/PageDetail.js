@@ -1,6 +1,5 @@
-import { PageList } from "./PageList";
-
 const PageDetail = (id) => {
+
   const moreInformations = (id) => {
     fetch(`https://api.rawg.io/api/games/${id}`)
       .then((response) => response.json())
@@ -10,6 +9,8 @@ const PageDetail = (id) => {
   }
 
   const setInformations = (game) => {
+    document.querySelector("#view-more-btn").innerHTML = "";
+    document.querySelector("#view-more-btn").className = "";
     let genres = [];
     game.genres.forEach(genre => {
       genres.push(`<a href="#pagelist/&genres=${genre.slug}">${genre.name}</a>`);
@@ -125,7 +126,6 @@ const PageDetail = (id) => {
     fetch(`https://api.rawg.io/api/games/${slug}/youtube?page_size=4`)
     .then((response) => response.json())
     .then((response) => {
-      console.log(response);
       response.results.forEach(video => {
         document.getElementById('youtube-videos').innerHTML += `
           <div class="col-6">

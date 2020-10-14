@@ -1,20 +1,23 @@
 const PageList = (argument) => {
+  document.querySelector("#articles").innerHTML = "";
 
-  const fetchList = (argument) => {
+  let current_page = 1;
+
+  const getURL = (argument) => { 
     let finalURL = `https://api.rawg.io/api/games?page_size=9`;
-    let articles = "";
     if (argument) {
       finalURL += "&search=" + argument;
     }
-    fetch(`${finalURL}`)
+    fetchList(finalURL);
+  }
+
+  const fetchList = (url) => {
+    fetch(`${url}&page=${current_page}`)
       .then((response) => response.json())
       .then((response) => {
         response.results.forEach((article) => {
           let platforms = [];
           let genres = []; 
-          article.platforms.forEach((platform) => {
-            platforms.push(platform.platform.name);
-          })
           article.genres.forEach((genre) =>  {
             genres.push(genre.name);
           })
@@ -25,7 +28,7 @@ const PageList = (argument) => {
             platforms = platforms.join(",\n");
           }
           genres = genres.join(",\n");
-          articles += `
+          document.querySelector("#articles").innerHTML += `
               <div class="card col-4">
                 <div class="card__side card__side--back">
                   <div class="card__cover"  style="background-image: url('${article["background_image"]}')">
@@ -40,7 +43,7 @@ const PageList = (argument) => {
                       <li>Note: ${article.rating}</li>
                       <li>${article.ratings_count} votes</li>
                       <li>
-                        <a class="btn btn-info my-4" onclick="PageDetail('${article.id}')" href = "#pagedetail/${article.id}">
+                        <a class="btn btn-info my-4" href="#pagedetail/${article.id}">
                           <strong>Plus d'infos</strong>
                         </a>
                       </li>
@@ -58,10 +61,22 @@ const PageList = (argument) => {
               </div>
           `;
         });
-        document.querySelector("#articles").innerHTML = articles;
       });
-  };
-  fetchList(argument);
+      const viewMoreBtn = document.querySelector("#view-more-btn")
+      if(current_page < 3){
+        viewMoreBtn.className = "btn btn-primary btn-lg";
+        viewMoreBtn.innerHTML = "Voir plus";
+        viewMoreBtn.onclick = () => {
+          current_page += 1;
+          fetchList(url);
+        };
+      }else{
+        viewMoreBtn.className = "";
+        viewMoreBtn.innerHTML = "";
+      }
+
+  }
+  getURL(argument);
 }
 
 export { PageList };

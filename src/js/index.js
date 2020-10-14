@@ -9,7 +9,6 @@ document.getElementById('submit-btn').onclick = (e) => {
   e.preventDefault();
   let stringSearch = document.getElementById('searchbar').value;
   window.location.hash=`#pagelist/${stringSearch}`;
-  PageList(stringSearch);
 }
 
 const setRoute = () => {

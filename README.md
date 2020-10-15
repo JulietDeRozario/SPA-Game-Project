@@ -8,5 +8,5 @@ You can search some games and have more informations about it!
 ## Installation
 Clode this repo and run the index.html file, or click on the title link.
 
-# WARNIND
-***This website is ugly***
+# WARNING
+**This website is ugly**

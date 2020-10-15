@@ -6,7 +6,7 @@ This is a Three days project basing on the RAWG Api, without using bootstrap or 
 You can search some games and have more informations about it!
 
 ## Installation
-Clode this repo and run the index.html file, or click on the title link.
+Clone this repo and open the index.html file, or click on the title link.
 
 # WARNING
 **This website is ugly**

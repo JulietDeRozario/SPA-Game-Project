@@ -3,8 +3,8 @@ import { PageDetail } from "./PageDetail";
 
 const routes = {
   "": Home,
-  "pagelist": PageList,
-  "pagedetail": PageDetail,
+  "game": PageList,
+  "gamedetails": PageDetail,
 };
 
 export {routes};

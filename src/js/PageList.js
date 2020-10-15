@@ -1,5 +1,9 @@
+import { CreateInspector } from './index';
+
 const PageList = (argument) => {
   document.querySelector("#articles").innerHTML = "";
+  document.querySelector(".main-text").style = "display: block";
+
 
   let current_page = 1;
 
@@ -29,43 +33,39 @@ const PageList = (argument) => {
           }
           genres = genres.join(",\n");
           document.querySelector("#articles").innerHTML += `
-              <div class="card col-4">
-                <div class="card__side card__side--back">
-                  <div class="card__cover"  style="background-image: url('${article["background_image"]}')">
-                    <h4 class="card__heading">
-                      <span class="card__heading-span">${article.name}</span>
-                    </h4>
-                  </div>
-                  <div class="card__details">
-                    <ul>
-                      <li>${article.released}</li>
-                      <li>${genres}</li>
-                      <li>Note: ${article.rating}</li>
-                      <li>${article.ratings_count} votes</li>
-                      <li>
-                        <a class="btn btn-info my-4" href="#pagedetail/${article.id}">
-                          <strong>Plus d'infos</strong>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="card__side card__side--front" style="background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('${article["background_image"]}'); background-position:center top;">
-                  <div class="card__theme">
-                    <div class="card__theme-box">
-                      <p class="card__title">${article.name}</p>
-                      <h3>${platforms}</h3>
-                    </div>
-                  </div>
+            <div class="card fade-in">
+              <div class="card__side card__side--front">
+                <img class="game-img" src="${article["background_image"]}"/>
+                <div class="game-info">
+                  <h1>${article.name}</h1>
+                  <h2>${platforms}</h2>
                 </div>
               </div>
+              <div class="card__side card__side--back">
+                <div class="card__description">
+                  <h1>${article.name}</h1>
+                  <ul>
+                    <li>${article.released}</li>
+                    <li>${genres}</li>
+                    <li>Note: ${article.rating}/5</li>
+                    <li>${article.ratings_count} votes</li>
+                    <li>
+                      <a class="btn btn-info my-4" href="#gamedetails/${article.slug}">
+                        <strong>See more</strong>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           `;
-        });
+        })
+        CreateInspector();
       });
       const viewMoreBtn = document.querySelector("#view-more-btn")
       if(current_page < 3){
-        viewMoreBtn.className = "btn btn-primary btn-lg";
-        viewMoreBtn.innerHTML = "Voir plus";
+        viewMoreBtn.className = "show-more-btn";
+        viewMoreBtn.innerHTML = "<p class='btn-text'>Show more</p>";
         viewMoreBtn.onclick = () => {
           current_page += 1;
           fetchList(url);
@@ -74,7 +74,7 @@ const PageList = (argument) => {
         viewMoreBtn.className = "";
         viewMoreBtn.innerHTML = "";
       }
-
+      
   }
   getURL(argument);
 }

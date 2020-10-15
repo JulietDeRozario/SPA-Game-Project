@@ -8,7 +8,8 @@ let pageArgument;
 document.getElementById('submit-btn').onclick = (e) => {
   e.preventDefault();
   let stringSearch = document.getElementById('searchbar').value;
-  window.location.hash=`#pagelist/${stringSearch}`;
+  stringSearch = stringSearch.toLowerCase().replace(/\s+/g, "-");
+  window.location.hash=`#game/${stringSearch}`;
 }
 
 const setRoute = () => {
@@ -19,5 +20,34 @@ const setRoute = () => {
   return true;
 };
 
+// Intersection Observer
+const CreateInspector = () => {
+  const allGames = document.querySelectorAll('.fade-in');
+  const appearOptions = {
+    threshold: 0,
+    rootMargin: "0px 0px -200px 0px",
+  };
+  
+  const appearOnScroll = new IntersectionObserver((
+    entries,
+    appearOnScroll
+    ) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting){
+          return;
+        } else {
+          entry.target.classList.add('appear');
+          appearOnScroll.unobserve(entry.target);
+        }
+      })
+    }, appearOptions)
+  
+  allGames.forEach(game => {
+    appearOnScroll.observe(game);
+  })
+}
+
 window.addEventListener("hashchange", () => setRoute());
 window.addEventListener("DOMContentLoaded", () => setRoute());
+
+export { CreateInspector };

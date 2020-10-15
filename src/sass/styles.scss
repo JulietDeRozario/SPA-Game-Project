@@ -1,13 +1,14 @@
-@import "~bootstrap/scss/bootstrap";
+// fonts = Avenir Next Medium et Avenir Next Bold
 
 // Colors
-$background-color: #ece0e8;
-$color-primary-light: #ca3782;
-$color-primary-dark: #1e0b36;
-$color-black: #000;
-$color-gray-dark: #aaa;
-$color-gray-light: #eee;
-$color-white: #fff;
+$background-color: #191919;
+$main-title-color: #d20a32;
+$searchbar-color: #2f3640;
+$searchbar-text-color: #4b4b4b;
+
+// Fonts
+$title-font: sans-serif;
+$main-font: sans-serif;
 
 // Mixins
 @mixin absCenter {
@@ -17,16 +18,16 @@ $color-white: #fff;
   transform: translate(-50%, -50%);
 }
 
-@mixin flexCenter {
-  flex-flow: row;
-  align-items: center;
-  justify-content: center;
-}
-
 @mixin respond($breakpoint) {
   @if $breakpoint==phone {
     @media (max-width: 37.5em) {
-      @content;
+      h1{
+        font-size: 15px;
+      }
+      p {
+        font-size: 8px;
+      }
+      padding: 10px;
     }
 
     // < 600px
@@ -57,369 +58,357 @@ $color-white: #fff;
   }
 }
 
-/* Reset */
-*,
-*::after,
-*::before {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  // 10px as 1rem.
-  font-size: 62.5%;
-
-  @include respond(tab-land) {
-    // width < 1200?
-    font-size: 56.25%; // 1rem = 9px, 9/16 = 56.25
-  }
-
-  @include respond(tab-port) {
-    // width < 900?
-    font-size: 50%; // 1rem = 8px, 8/16 = 50
-  }
-
-  @include respond(big-desktop) {
-    font-size: 75%; // 1 rem = 12px, 12/16 = 75
-  }
-}
-
-.card {
-  flex: initial;
-  position: relative;
-  height: 35rem;
-  width: 27rem;
-  -moz-perspective: 200rem;
-  perspective: 200rem;
-  margin: 2rem;
-
-  &__side {
-    height: 35rem;
-    background-size: cover;
-    transition: all 0.8s ease;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    -webkit-backface-visibility: hidden;
-    /* We don't want to see the back part of the element. */
-    backface-visibility: hidden;
-    /* We don't want to see the back part of the element. */
-    border-radius: 3px;
-    overflow: hidden;
-    /* The image is overflowing the parent. */
-    box-shadow: 0 2rem 6rem rgba($color-black, 0.15);
-
-
-    &--back {
-      transform: rotateY(180deg);
+body {
+  @include respond(body);
+  z-index: -1;
+  position: absolute;
+  color: whitesmoke;
+  background-color: $background-color;
+  font-family: $main-font;
+  padding-top: 45px;
+  
+  header {
+    padding-left: 80px;
+    padding-right: 80px;
+    display: flex;
+    
+    h1.main-title {
+      font-family: $title-font;
+      color: $main-title-color;
+      font-size: 50px;
+      margin-bottom: 0;
+      width: 60vw;
+      text-shadow: 5px 5px 10px #0c0c0c;
+    }
+    .searchBox {
+      z-index: 1;
+      position: fixed;
+      margin-left: 70%;
+      margin-top: 7px;
+      transform:  translate(-50%,50%);
+      background: $searchbar-color;
+      height: 40px;
+      border-radius: 40px;
+      padding: 10px;
+      box-shadow: 0 0.5rem 0.5rem rgba(black, 0.15);
+    
+    }
+    .searchBox:hover > .searchInput {
+      width: 240px;
+      padding: 0 6px;
+    }
+    
+    .searchBox:hover > .searchButton {
+    background: white;
+    color : $searchbar-color;
+    }
+    
+    .searchButton {
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: $searchbar-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.4s;
+    }
+    
+    .searchInput {
+      border:none;
+      background: none;
+      outline:none;
+      float:left;
+      padding: 0;
+      color: white;
+      font-size: 16px;
+      transition: 0.4s;
+      line-height: 40px;
+      width: 0px;
+    
     }
   }
 
-  &:hover &__side--back {
-    transform: rotateY(0);
+  .main-text {
+    padding-left: 80px;
+    padding-right: 80px;
+    color: #ffffff;
+    h2 {
+      font-size: 50px;
+      text-shadow: 5px 5px 6px #0c0c0c;
+    }
+    p {
+      font-size: 20px;
+      letter-spacing: .5px;
+      line-height: 30px;
+      text-shadow: 3px 3px 4px #0c0c0c;
+    }
+  }
+}
+
+
+@media screen and (max-width: 620px) {
+  .searchBox:hover > .searchInput {
+    width: 150px;
+    padding: 0 6px;
+  }
+}
+
+#articles {
+  position: relative;
+  padding-left: 80px;
+  padding-right: 80px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  width: 400px;
+  height: 500px;
+  transform: scale(0.9);
+  transition: all 1s 300ms ease-in-out;
+
+
+  
+  &__side {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25em;
+    backface-visibility: hidden;
+    transition: all .6s .2s ease-in;
+    box-shadow: 1em 1em 2em rgba(0,0,0,.2);
+      
+    &--front {
+      .game-img {
+        width: 400px;
+      }
+      .game-info {
+        position: absolute;
+        width: 400px;
+        padding: 15px;
+        text-shadow: 3px 3px 4px #0c0c0c;
+        h1{
+          text-shadow: 3px 3px 8px #0c0c0c;
+          font-size: 25px;
+          margin-top: 5px;
+        }
+      }
+    }
+    &--back {
+      width: 400px;
+      position: absolute;
+      transform: rotateY(180deg);
+      padding: 10px;
+      text-align: center;
+      display: table-cell; 
+      vertical-align: middle;
+
+      h1{
+        text-shadow: 3px 3px 8px #0c0c0c;
+        font-size: 25px;
+        margin-top: 5px;
+      }
+    }   
   }
 
   &:hover &__side--front {
     transform: rotateY(-180deg);
   }
-
-  // Front side of the card
-  &__theme {
-    @include absCenter;
-    top: 54%;
-    width: 90%;
-    text-align: center;
-  }
-
-  &__theme-box {
-    color: $color-white;
-    margin-bottom: 8rem;
-  }
-
-  &__subject {
-    font-family: "Inconsolata", monospace;
-    letter-spacing: 0.8rem;
-    font-size: 0.05rem;
-    text-transform: uppercase;
-    margin-bottom: 0.25rem;
-  }
-
-  &__title {
-    font-family: "VT323", monospace;
-    text-transform: uppercase;
-    font-size: 3rem;
-    font-weight: 100;
-  }
-
-  // Back side of the card
-  &__cover {
-    position: relative;
-    background-size: cover;
-    height: 7rem;
-    // background-blend-mode: screen;
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-  }
-
-  &__heading {
-    text-align: center;
-    color: $color-white;
-    @include absCenter;
-    width: 75%;
-  }
-
-  &__heading-span {
-    font-family: "VT323", monospace;
-    font-size: 2rem;
-    font-weight: 300;
-    text-transform: uppercase;
-    padding: 1rem 1.5rem;
-    color: $color-white;
-  }
-
-  &__details {
-    font-family: "Inconsolata", monospace;
-    padding: 4rem 2rem;
-
-    ul {
-      list-style: none;
-      width: 80%;
-      margin: 0 auto;
-
-      li {
-        text-align: center;
-        font-size: 1rem;
-        padding: 1rem;
-
-        &:not(:last-child) {
-          border-bottom: 1px solid $color-gray-light;
-        }
-      }
-    }
-  }
-
-  // Responsivity
-  @media only screen and (max-width: 37.5em),
-  only screen and (hover: none) {
-    height: auto;
-    border-radius: 3px;
-    background-color: $color-white;
-    box-shadow: 0 2rem 6rem rgba($color-black, 0.15);
-
-    &__side {
-      height: auto;
-      position: relative;
-      box-shadow: none;
-
-      &--front {
-        clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
-      }
-
-      &--back {
-        transform: rotateY(0);
-      }
-    }
-
-    &:hover &__side--front {
-      transform: rotateY(0);
-    }
-
-    &__details {
-      padding: 3rem 2rem;
-    }
-
-    // Front side responsive styling
-    &__theme {
-      position: relative;
-      top: 0;
-      left: 0;
-      transform: translate(0);
-      width: 100%;
-      padding: 5rem 4rem 1.5rem 4rem;
-      text-align: right;
-    }
-
-    &__theme-box {
-      margin-bottom: 1.5rem;
-    }
-
-    &__title {
-      font-size: 4rem;
-    }
+  
+  &:hover &__side--back {
+    transform: rotate(0);
   }
 }
-//=========================================================
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700,800');
-
-*{
-  box-sizing: border-box;
-  margin: 0;
-}
-
-html, body{
-  margin: 0;
-  background: white;
-  font-family: 'Montserrat', helvetica, arial, sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-}
-
-.link{
-  display: block;
+.show-more-btn {
+  cursor: pointer;
+  margin: auto;
+  display: table;
+  background-color: rgb(209, 10, 50);
+  box-shadow: 0 1rem 1rem rgba(black, 0.15);
+  color: whitesmoke;
+  width: 200px;
+  height: 50px;
   text-align: center;
-  color: #777;
-  text-decoration: none;
-  padding: 10px;
+  transition: all 400ms 200ms ease-in-out;
+  .btn-text {
+    font-size: 25px;
+    display: table-cell; 
+    vertical-align: middle;
+  }
+  &:hover {
+    transform: translateY(-4px) scale(1.05);
+    filter: contrast(1.25);
+  }
 }
 
-.game_card{
+
+footer {
+  padding-top: 200px;
   position: relative;
-  display: block;
-  width: 1000px;
-  height: auto;
-  margin: 80px auto; 
-  overflow: hidden;
-  border-radius: 10px;
-  transition: all 0.4s;
-  box-shadow: 0px 0px 120px -25px rgba(0,0,0, 0.5);
-  &:hover{
-    transform: scale(1.02);
-    box-shadow: 0px 0px 80px -25px rgba(0,0,0, 0.5);
-    transition: all 0.4s;
+  font-size: 12px;
+  p {
+    padding-top: 15px;
   }
-  .info_section{
-    position: relative;
-    width: 100%;
-    height: 100%;
-	  background-blend-mode: multiply;
-    z-index: 2;
-    border-radius: 10px;
-    .game_header{
-      position: relative;
-      padding: 25px;
-      height: 15%;
-      h1{
-        color: black;
-        font-weight: 400;
-      }
-      h4{
-        color: #555;
-        font-weight: 400;
-      }
-      .minutes{
-        display: inline-block;
-        margin-top: 15px;
-        color: #555;
-        padding: 5px;
-        border-radius: 5px;
-        border: 1px solid rgba(0,0,0,0.05);
-      }
-      .type{
-        display: inline-block;
-        color: #959595;
-        margin-left: 10px;
-      }
-      .locandina{
-        position: relative;
-        float: left;
-        margin-right: 20px;
-        height: 120px;
-        box-shadow: 0 0 20px -10px rgba(0,0,0,0.5);
-      }
-    }
-    .game_desc{
-      padding: 25px;
-      height: 50%;
-      .text{
-        color: #545454;
-      }
-    }
-    .game_social{
-      height: 10%;
-      padding-left: 15px;
-      padding-bottom: 20px;
-      ul{
-        list-style: none;
-        padding: 0;
-        li{
-          display: inline-block;
-          color: rgba(0,0,0,0.3);
-          transition: color 0.3s;
-          transition-delay: 0.15s;
-          margin: 0 10px;
-          &:hover{
-            transition: color 0.3s;
-            color: rgba(0,0,0,0.7);
-          }
-          i{
-            font-size: 19px;
-            cursor: pointer;
-          }
-        }
-      }
-    }
-  }
-  .blur_back{
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 8%;
+  height: 10px;
+  background: $main-title-color;
+}
+
+a, a:visited {
+	text-decoration: none;
+	position: relative;
+  color: $main-title-color;
+	
+	&:after {
+		content: '';
+		height: 1.75px;
     position: absolute;
-    top: 0;
-    z-index: 1;
-    height: 100%; right: 0;
-    background-size: cover;
-    border-radius: 11px;
+		bottom: 0;
+		left: 0;
+		width: 0%;
+		background: $main-title-color;
+		transition: 0.2s;
+	}
+
+	&:hover:after {
+		width: 100%;
   }
 }
 
-@media screen and (min-width: 768px) {
-  .game_header{
-    width: 65%;
-  }
-  
-  .game_desc{
-    width: 50%;
-  }
-  
-  .info_section{
-    background: linear-gradient(to right, #e5e6e6 50%, transparent 100%);
-  }
-  
-  .blur_back{
-    width: 80%;
-    background-position: -100% 10% !important;  
-  }
+.fade-in{
+  opacity: 0;
+  transition: opacity 250ms ease-in;
 }
 
-@media screen and (max-width: 768px) {
-  .game_card{
-    width: 95%;
-    margin: 70px auto; 
-    min-height: 350px;
-    height: auto;
-  }
-  
-  .blur_back{
-    width: 100%;
-    background-position: 50% 50% !important;  
-  }
-  
-  .game_header{
-    width: 100%;
-    margin-top: 85px;
-  }
-  
-  .game_desc{
-    width: 100%;
-  }
-  
-  .info_section{
-    background: linear-gradient(to top, #e5e6e6 50%, transparent 100%);
-    display: inline-grid;
-  }
+.appear {
+  opacity: 1;
+} 
+
+.background-img {
+  position: relative;
+  width: 101vw;
+  margin-left: -80px;
+  margin-right: -80px;
+  margin-top: 50px;
 }
 
 
+.game-headers {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  max-width: 90vw;
+  h1 {
+    font-size: 45px;
+  }
+  span {
+    margin-left: auto;
+    margin-right: 20px;
+    margin-top: 10px;
+    color: $main-title-color;
+    font-size: 20px;
+  }
+}
+
+.plot {
+  max-width: 80vw;
+}
+
+.game-sources, .game-sources-row2 {
+  max-width: 80vw;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  p {
+    max-width: 15vw;
+  }
+}
+
+.game-sources-row2 {
+  p {
+    max-width: 40vw;
+  }
+}
+
+video {
+  width: 80vw;
+  margin-top: 25px;
+}
+
+.game-shops {
+  p {
+    display: flex;
+    flex-direction: column;
+  }
+  a{
+    max-width: 100px;
+    margin-bottom: 5px;
+  }
+  margin-bottom: 50px;
+}
+
+.big-title {
+  color: $main-title-color;
+}
+
+.row #screenshots  {
+  position: relative;
+  max-width: 80vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .screenshot {
+    width: 585px;
+    margin-bottom: 50px;
+  }
+}
+
+.row #youtube-videos {
+  max-width: 80vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .youtube-video {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    img {
+      width: 300px;
+    }
+  }
+}
+
+.video-text {
+  width: 30vw;
+}
+
+.row #similar-games {
+  max-width: 80vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  img {
+    width: 500px;
+  }
+  h3 {
+    max-width: 20vw;
+  }
+  .similar-game {
+    margin-left: 10px;
+  }
+}
 

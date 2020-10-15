@@ -1,4 +1,4 @@
-# [SPA-Game-Project](https://julietderozario.github.io/SPA-Game-Project/game)
+# [SPA-Game-Project](https://julietderozario.github.io/SPA-Game-Project/#game)
 
 This is a Three days project basing on the RAWG Api, without using bootstrap or any library and framework to help with the front.
 

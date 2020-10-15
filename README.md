@@ -9,4 +9,4 @@ You can search some games and have more informations about it!
 Clode this repo and run the index.html file, or click on the title link.
 
 # WARNIND
-*** This website is ugly ***
+***This website is ugly***
